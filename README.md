@@ -48,24 +48,22 @@ This project demonstrates the **prevention**-first layer of a cloud security pos
 
 * An **Azure Subscription**. The Free Tier is sufficient; all services used here are designed to work with the initial $200 credit.
 * Basic familiarity with navigating the Azure Portal.
-
+  
 ---
 
-# Zero-Trust Fortress: Full Tutorial (Project 1)
+# Step by Step Guide
 
 This project builds the core infrastructure, including the networks, a web server, a database, and a secure "safe" for our secrets (Key Vault).
-
----
 
 ## Step 1: Create the Resource Group
 
 This is the main project folder that will hold all our resources.
 
-1.  Log in to your Azure Portal.
+1.  Log in to Azure Portal.
 2.  In the main search bar at the top, type: **Resource groups** and select it.
 3.  Click the **+ Create** button.
 4.  On the "Create a resource group" page, fill in the following:
-    * **Subscription:** Select your "Azure free account".
+    * **Subscription:** Select "Azure free account".
     * **Resource group:** `core-security-rg`
     * **Region:** `East US 2` (or your preferred region)
 5.  Click **Review + create**, then click **Create**.
@@ -83,20 +81,20 @@ This is our central "mall" for security services.
 3.  On the **Basics** tab:
     * **Resource group:** Select `core-security-rg`.
     * **Name:** `hub-vnet`
-    * **Region:** `East US 2` (must be the same as your RG)
+    * **Region:** `East US 2` (this must be the same as your RG)
 4.  Click **Next: Security**.
 5.  On the **Security** tab:
-    * We will leave all options (Azure Bastion, DDoS Protection, Azure Firewall) as **`Disable`**. We will build these manually later.
+    * i left all options (Azure Bastion, DDoS Protection, Azure Firewall) as **`Disable`**. will build these manually later.
 6.  Click **Next: IP Addresses**.
 7.  On the **IP Addresses** tab:
     * **IPv4 address space:** Delete the default and type: **`10.10.0.0/16`**
-    * **Subnets:** We will edit the `default` subnet and add a new one.
+    * **Subnets:** edit the `default` subnet and add a new one.
     * Click on the word **`default`** to edit it.
     * **Edit Subnet (Firewall):**
         * **Subnet purpose:** Select **`Azure Firewall`**.
         * **Name:** It will auto-fill to `AzureFirewallSubnet`.
         * **Starting address:** Type **`10.10.1.0`**
-        * **Size:** It will default to `/26`. **Leave this as it is.**
+        * **Size:** It will default to `/26`. **leave this as it is.**
         * Click **Save**.
     * Now, click the **+ Add subnet** button.
     * **Add Subnet (Bastion):**
@@ -131,22 +129,22 @@ This is the isolated "restaurant" for the application.
     * **Subnets:** We will add three custom subnets.
     * Click on the word **`default`** to edit it.
     * **Edit Subnet (web-subnet):**
-        * **Subnet purpose:** Leave as **`Default`**.
+        * **Subnet purpose:** leave as **`Default`**.
         * **Name:** Type **`web-subnet`**
         * **Starting address:** Type **`10.20.1.0`**
         * **Size:** Type **`/24`**
         * Click **Save**.
     * Click the **+ Add subnet** button.
     * **Add Subnet (db-subnet):**
-        * **Subnet purpose:** Leave as **`Default`**.
+        * **Subnet purpose:** leave as **`Default`**.
         * **Name:** Type **`db-subnet`**
         * **Starting address:** Type **`10.20.2.0`**
         * **Size:** Type **`/24`**
         * Click **Add**.
     * Click the **+ Add subnet** button again.
     * **Add Subnet (pe-subnet):**
-        * **Subnet purpose:** Leave as **`Default`**.
-        * **Name:** Type **`pe-subnet`** (This is for the Private Endpoints)
+        * **Subnet purpose:** leave as **`Default`**.
+        * **Name:** Type **`pe-subnet`** (this is for the private endpoints)
         * **Starting address:** Type **`10.20.3.0`**
         * **Size:** Type **`/24`**
         * Click **Add**.
@@ -161,9 +159,9 @@ This is the isolated "restaurant" for the application.
 
 ## Step 4: VNet Peering (Connecting the Networks)
 
-Let's build the "hallway" between the hub and spoke.
+mpw, let's build the "hallway" between the hub and spoke.
 
-1.  In the Azure search bar, go to your **`hub-vnet`** resource.
+1.  In the Azure search bar, go to **`hub-vnet`** resource.
 2.  On the left-hand menu, under "Settings," click on **Peerings**.
 3.  Click the **+ Add** button.
 4.  Fill out the form:
@@ -181,19 +179,19 @@ Let's build the "hallway" between the hub and spoke.
 
 ---
 
-## Step 5: Create the Web Server VM (web-vm-01)
+## Step 5: Create the Web Server Virtual Machine (web-vm-01)
 
-Now we build the "waiter" for our application, placing it in the `web-subnet`.
+Now, let's build the "waiter" for our application, placing it in the `web-subnet`.
 
 1.  In the Azure search bar, type: **Virtual machines** and select it.
 2.  Click **+ Create** -> **Azure virtual machine**.
 3.  On the **Basics** tab:
-    * **Resource group:** `Core-Security-RG`
+    * **Resource group:** `core-security-rg`
     * **Virtual machine name:** `web-vm-01`
     * **Region:** `East US 2`
     * **Security type:** `Standard`
     * **Image:** `Ubuntu Server 22.04 LTS - x64 Gen2`
-    * **Size:** `B1s` (Click "See all sizes" to find this low-cost option)
+    * **Size:** `B1s` (click on "see all sizes" to find this low-cost option)
     * **Administrator account:**
         * **Authentication type:** `Password`
         * **Username:** `azureuser` (or your choice)
@@ -214,8 +212,8 @@ Now we build the "waiter" for our application, placing it in the `web-subnet`.
 8.  Click **Next: Management**.
 9.  On the **Management** tab:
     * Check the box for **`Enable auto-shutdown`**.
-    * Set a **Time** (e.g., `19:00`) and your **Time zone** (e.g., `(UTC+01:00) West Central Africa`).
-    * Leave "Enable system assigned managed identity" **unchecked** (we'll do this later).
+    * Set a **Time** (e.g., `00:00`) and your **Time zone**.
+    * Leave "Enable system assigned managed identity" **unchecked** (we'd do this later).
 10. Click **Next: Monitoring**.
 11. On the **Monitoring** tab:
     * Set **Boot diagnostics** to **`Disable`** (to save a small cost).
@@ -230,7 +228,7 @@ Now we build the "waiter" for our application, placing it in the `web-subnet`.
 
 ## Step 6: Create the SQL Database (web-db-01)
 
-Now we build the secure "chef" for our application, locking it in the `db-subnet`.
+Now, let's build the secure "chef" for our application, locking it in the `db-subnet`.
 
 1.  In the Azure search bar, type: **Azure SQL** and select it.
 2.  On the left-hand menu, click **"Azure SQL Database"**.
@@ -240,11 +238,11 @@ Now we build the secure "chef" for our application, locking it in the `db-subnet
     * **Database name:** `web-db-01`
     * **Server:** Click the **"Create new"** link.
         * A new panel will open.
-        * **Server name:** `core-security-server` (or another unique name)
+        * **Server name:** `core-security-server` (or any other unique name)
         * **Location:** `East US 2`
         * **Authentication method:** `Use SQL authentication`
         * **Server admin login:** `sqladmin`
-        * **Password:** Create and **write down** a strong password. This is your database password.
+        * **Password:** Create and **write down** a strong password as this is your database password.
         * Click **OK**.
     * Back on the "Basics" tab, click **"Configure database"** (under Compute + storage).
         * Select **`Serverless`**.
@@ -255,7 +253,7 @@ Now we build the secure "chef" for our application, locking it in the `db-subnet
     * **Zone redundancy:** Select **`No`**.
 5.  Click **Next: Networking**.
 6.  On the **Networking** tab:
-    * **Connectivity method:** Select **`Private endpoint`**. (This is critical!)
+    * **Connectivity method:** Select **`Private endpoint`**. (this is critical!)
     * **Private endpoints:** Click **"+ Add private endpoint"**.
         * A new panel will open.
         * **Name:** `web-db-01-pe`
@@ -265,14 +263,14 @@ Now we build the secure "chef" for our application, locking it in the `db-subnet
         * Click **OK**.
 7.  Click **Next: Security**.
 8.  On the **Security** tab:
-    * Find **Microsoft Defender for SQL** and click **"Start free trial"**.
+    * Find **Microsoft Defender for SQL** and click **"start free trial"**.
     * Leave all other settings as default.
 9.  Click **Next: Additional settings**.
 10. On the **Additional settings** tab:
     * **Use existing data:** Select **`Sample`**. (This will load the `AdventureWorksLT` sample database).
 11. Click **Next: Tags**.
 12. On the **Tags** tab, leave it blank and click **Next: Review + create**.
-13. Wait for "Validation passed," then click **Create**. (This may take 5-10 minutes).
+13. Wait for "Validation passed," then click **Create**. (this will take few minutes).
 
 <p align="left"><img src="images/web-db-01-pe.png" width="100%"></p>
 <p align="left"><img src="images/web-db-01.png" width="100%"></p>
@@ -316,10 +314,10 @@ This is the secure "safe" for the database password.
 
 ## Step 8: The "Lockout" (Fixing Permissions to Add the Secret)
 
-This is where we prove our Zero-Trust model works. We have to fight our own security to add the password.
+This is  the part where we see proof of the Zero-Trust model working, but we have to fight our own security to add the password.
 
 1.  Go to your new **`core-security-kv`** resource.
-2.  On the left menu, click **Secrets**. You will see an error: **"You are unauthorized to view these contents."** This is expected!
+2.  On the left menu, click **Secrets**. You will see an error: **"You are unauthorized to view these contents."** This is expected.
 3.  **Fix 1 (Identity):** Grant your user account permissions.
     * On the left menu, click **Access control (IAM)**.
     * Click **+ Add** -> **Add role assignment**.
@@ -335,7 +333,7 @@ This is where we prove our Zero-Trust model works. We have to fight our own secu
     * In a new browser tab, google **"what is my IP"** and copy your IP address.
     * Paste your IP into the box and add **`/32`** to the end (e.g., `102.89.40.12/32`).
     * Click **Save** at the top.
-6.  Wait 1-2 minutes for the firewall to update.
+6.  Wait few minutes for the firewall to update.
 
 <p align="left"><img src="images/access-control.png" width="100%"></p>
 
@@ -343,7 +341,7 @@ This is where we prove our Zero-Trust model works. We have to fight our own secu
 
 ## Step 9: Store the Secret (and Close the Hole)
 
-Now we can finally add the password.
+Now, lets finally add the password.
 
 1.  Go back to the **Secrets** blade on the left menu. (Refresh your browser if you still see an error).
 2.  The error should be gone. Click **+ Generate/Import**.
@@ -353,7 +351,7 @@ Now we can finally add the password.
 4.  Click **Create**.
 5.  **CRITICAL:** Go back to the **Networking** blade.
 6.  Change the "Public access" setting from "Selected networks" back to **`No public access`**.
-7.  Click **Save**. You have now re-secured the vault.
+7.  Click **Save**. 
 
 <p align="left"><img src="images/secrets.png" width="100%"></p>
 
@@ -362,7 +360,7 @@ Now we can finally add the password.
 
 ## Step 10: Grant the VM Access (Managed Identity)
 
-The final step. We give our VM (`web-vm-01`) permission to *read* the secret.
+The final step is to give the virtual machine (`web-vm-01`) permission to *read* the secret.
 
 1.  **Part A: Enable Identity on VM**
     * In the search bar, go to your **`web-vm-01`** resource.
@@ -374,7 +372,7 @@ The final step. We give our VM (`web-vm-01`) permission to *read* the secret.
     * In the search bar, go to your **`core-security-kv`** resource.
     * On the left menu, click **Access control (IAM)**.
     * Click **+ Add** -> **Add role assignment**.
-    * **Role:** Search for and select **`Key Vault Secrets User`**. Click **Next**. (This is a lower-privilege role, perfect for a VM).
+    * **Role:** Search for and select **`Key Vault Secrets User`**. Click **Next**. 
     * **Members:**
         * **Assign access to:** Select **`Managed identity`**.
         * **Members:** Click **`+ Select members`**.
@@ -393,4 +391,19 @@ The final step. We give our VM (`web-vm-01`) permission to *read* the secret.
 ### **Project - Complete!**
 
 This foundation is now secure, private, and ready for the next phase.
+
+<h3 align="left">Connect with me:</h3>
+<p align="left">
+  <a href="https://linkedin.com/in/gideonjohnutong" target="blank">
+    <img align="center" src="https://img.shields.io/badge/LinkedIn-0077B5" alt="Your LinkedIn Profile" />
+  </a>
+  <a href="https://medium.com/@thegideonjohn" target="blank">
+    <img align="center" src="https://img.shields.io/badge/Medium-12100E" alt="Your Medium Blog" />
+  </a>
+   <a href="https://twitter.com/@thegideonjohn" target="blank">
+    <img align="center" src="https://img.shields.io/badge/X-000000" alt="Your X (Twitter) Profile" />
+  </a>
+</p>
+
+
 
