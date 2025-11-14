@@ -224,7 +224,7 @@ Now we build the "waiter" for our application, placing it in the `web-subnet`.
 14. Wait for "Validation passed," then click **Create**.
 
 <p align="left"><img src="images/public-ip.png" width="100%"></p>
-<p align="left"><img src="images/wem-vm-01.png" width="100%"></p>
+<p align="left"><img src="images/web-vm-01.png" width="100%"></p>
 
 ---
 
