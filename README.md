@@ -274,7 +274,6 @@ Now we build the secure "chef" for our application, locking it in the `db-subnet
 12. On the **Tags** tab, leave it blank and click **Next: Review + create**.
 13. Wait for "Validation passed," then click **Create**. (This may take 5-10 minutes).
 
-> **📷 Screenshots for Step 6:**
 <p align="left"><img src="images/web-db-01-pe.png" width="100%"></p>
 <p align="left"><img src="images/web-db-01.png" width="100%"></p>
 
@@ -310,7 +309,6 @@ This is the secure "safe" for the database password.
 9.  On the **Tags** tab, leave it blank and click **Next: Review + create**.
 10. Wait for "Validation passed," then click **Create**.
 
-> **📷 Screenshots for Step 7:**
 <p align="left"><img src="images/access-configuration.png" width="100%"></p>
 <p align="left"><img src="images/core-security-kv.png" width="100%"></p>
 
