@@ -1,6 +1,6 @@
 # Azure Zero Trust Architecture
 
-.A hands-on Azure project demonstrating a Zero-Trust architecture, using a secure-by-default Hub-Spoke network with 0 public IPs, secured by Private Endpoints & Managed Identity.
+A hands-on Azure project demonstrating a Zero-Trust architecture, using a secure-by-default Hub-Spoke network with 0 public IPs, secured by Private Endpoints & Managed Identity.
 
 This repository documents the step-by-step build of a foundational, secure enterprise environment in Microsoft Azure. The architecture is built on a "Zero-Trust" / "Secure-by-Default" model, where no component is exposed to the public internet.
 
