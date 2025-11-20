@@ -10,7 +10,7 @@ This guide documents the second phase of building the Zero-Trust architecture. T
 
 The completion of this phase moves the network into a fully enforced, managed security state.
 
-<p align="left"><img src="images/final-result-2.png" width="100%"><
+<p align="left"><img src="images/final-result-2.png" width="100%">
                                                              
 ---
   
@@ -28,7 +28,7 @@ The primary achievement of Project 2 is the change in how the network routes int
 * **Old Flow (Project 1 State):** Traffic from the VM went directly to the internet.
     > `[web-vm-01] -->(Direct Internet Egress)--> [World]`
 * **New Flow (Project 2 State - Active):** All internet-bound traffic is now forced to the Firewall.
-    > `[web-vm-01] --> [Route Table/UDR] --> [Azure Firewall] --> [Internet]`
+    > `[web-vm-01] --> [Route Table] --> [Azure Firewall] --> [Internet]`
     *(The Firewall inspects the traffic and blocks it unless an explicit rule is set.)*
 
 ## Identity and Data Flow (Preservation)
@@ -45,26 +45,16 @@ The core Identity flow established in Project 1 remains preserved, ensuring secu
 Let's deploy Azure Bastion into the dedicated subnet in the Hub VNet.
 
 1.  In the Azure Portal, search for and create a new **Bastion** resource.
-2.  **Tier:** Select **`Basic`** (Crucial for cost management).
+2.  **Tier:** Select **`Basic`** (critical for cost management).
 3.  **Availability zones:** Ensure all zones are unchecked (**None**) for easy deployment.
 4.  **Virtual network:** Select **`hub-vnet`**.
 5.  **Subnet:** It should automatically detects and use **`AzureBastionSubnet`**.
 6.  **Public IP address:** Select **`Create new`** (Name: `hub-bastion-ip`).
 7.  Click **Review + create**, then **Create**. (Wait few minutes).
 
-<div align="center">
 
-    <div style="display: inline-block; width: 48%;">
-        <img src="images/bastion-blade.png" alt="[Image 1: Brief Description]" style="width: 100%;">
-        <p align="center">**Figure 1.1: Your Hub VNet Configuration**</p>
-    </div>
+<img src="images/bastion-blade.png" alt="[Image 1: Bastion Setup]" width="350">  <img src="images/bastion.png" alt="[Image 2: Route Table Setup]" width="350"> 
 
-    <div style="display: inline-block; width: 48%;">
-        <img src="images/bastion.png" alt="[Image 2: Brief Description]" style="width: 100%;">
-        <p align="center">****</p>
-    </div>
-
-</div>
 
 ## Step 2: Test Access via Bastion
 
@@ -101,19 +91,9 @@ This step deploys the central firewall on the cost-effective Basic SKU, requirin
 6.  **Management Public IP address:** This is required for the Basic tier. Click **Add new** (Name: `hub-firewall-mgmt-ip`).
 7.  Click **Review + create**, then **Create**.
 
-<div align="center">
 
-    <div style="display: inline-block; width: 48%;">
-        <img src="firewall-blade.png" alt="[Image 1: Brief Description]" style="width: 100%;">
-        <p align="center"></p>
-    </div>
+<img src="images/firewall-blade.png" alt="" width="350">  <img src="images/firewall.png" alt="" width="350">
 
-    <div style="display: inline-block; width: 48%;">
-        <img src="firewall.png" alt="[Image 2: Brief Description]" style="width: 100%;">
-        <p align="center">**Figure 1.2: Your Spoke VNet Configuration**</p>
-    </div>
-
-</div>
 ---
 
 ## Step 4: Configure Forced Tunneling (Traffic Laws)
@@ -143,7 +123,8 @@ This crucial step implements **Forced Tunneling** to ensure the Firewall inspect
 4.  **Subnet:** Select **`web-subnet`**.
 5.  Click **OK**.
 
-<p align="left"><img src="images/route-table.png" width="100%"><
+<p align="left"><img src="images/route-table.png" width="100%">
+  
 ---
 
 ## Step 5: Final Verification
@@ -154,12 +135,13 @@ Let's verify that the Forced Tunneling is active by confirming the VM's internet
 2.  In the terminal, run the command to test internet connectivity (e.g., `curl www.google.com`).
 3.  **Result:** The command will hang or time out. This confirms the **"Default Deny"** state is enforced by the Azure Firewall.
 
-<p align="left"><img src="images/default-deny.png" width="100%"><
+<p align="left"><img src="images/deny-state.png" width="100%">
+  
 ---
 
 ### Project 2 - Complete!
 
-The **Centralized Fortress** is built and the gates are locked. The network is now ready for the intelligence of Project 3.
+The Centralized Fortress is built and the gates are locked, and the network is now ready for the next step.
 
 <h3 align="left">Connect with me:</h3>
 <p align="left">
