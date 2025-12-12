@@ -1,6 +1,6 @@
 # THE AUTOMATED SOC
 
-This guide provides step by step details of the final phase: building the "Brain" and "Reflexes" of the fortress. A Mini-SOC (Security Operations Center) is implemented using Microsoft Sentinel to detect threats and  block attackers automatically.
+This guide provides a step by step details of the final phase: building the "Brain" and "Reflexes" of the fortress. A Mini-SOC (Security Operations Center) is implemented using Microsoft Sentinel to detect threats and  block attackers automatically.
 
 ---
 
@@ -58,6 +58,7 @@ Let's connect the existing security tools to feed data into Sentinel.
     * Search for **"Microsoft Defender for Cloud (Legacy)"** (or "Subscription-based").
     * Click **Open connector page**.
     * Find your **Azure subscription** in the list and click **Connect**.
+      
 2.  **Connect Azure Firewall:**
     * In the Azure Portal search bar, go to your **`hub-firewall`** resource.
     * On the left menu, under "Monitoring," click **Diagnostic settings**.
@@ -85,7 +86,8 @@ Let's create the "Jail" (IP Group) and the "Guard" (Firewall Rule) before buildi
     * **Name:** `suspect-ip-group`.
     * **Region:** `East US 2`.
     * Click **Review + create**, then **Create**.
-2.  **Configure Firewall Rule (The Guard):**
+      
+2.  **Configure The Firewall Rule (The Guard):**
     * Go to your **`hub-firewall`** resource.
     * Click **Firewall policy** (link in Overview).
     * Go to **Network rules** (under Settings).
@@ -119,10 +121,12 @@ Let's build the automation that links the Intelligence (Sentinel) to the Defense
     * **Region:** `East US 2`.
     * **Enable Log Analytics:** `No`.
     * Click **Review + create**, then **Create**.
+      
 2.  **Enable Identity:**
     * Go to the new Logic App resource.
     * Go to **Settings -> Identity** -> Toggle **System assigned** to **On**.
     * Click **Save**.
+      
 3.  **Grant Permissions (Crucial):**
     * Go to the **`suspect-ip-group`** resource.
     * Click **Access control (IAM)** and **Add role assignment**.
