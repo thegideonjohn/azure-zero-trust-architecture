@@ -233,7 +233,7 @@ Let's build the automation that links the Intelligence (Sentinel) to the Defense
     * **Blocking:** Check the **Logic App Run History** to see "Succeeded". Check the **IP Group** to see if the test IP was added.
   
 
-<p align="left"><img src="images/IMG-9708.PNG" width="100%">
+<p align="left"><img src="images/IMG_9708.PNG" width="100%">
 
 
 ---
