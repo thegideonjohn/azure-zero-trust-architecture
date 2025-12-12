@@ -6,7 +6,7 @@ This guide provides a step by step details of the final phase: building the "Bra
 
 ## Final Result & Key Features
 
-<p align="left"><img src="images/output-final.png" width="100%">
+<p align="left"><img src="images/output-final.jpg" width="100%">
 
 **SIEM**: Active log ingestion and correlation using Microsoft Sentinel
 
