@@ -6,7 +6,7 @@ This guide provides a step by step details of the final phase: building the "Bra
 
 ## Final Result & Key Features
 
-<p align="left"><img src="images/output-final.jpg" width="100%">
+<p align="left"><img src="images/output-final.JPG" width="100%">
 
 **SIEM**: Active log ingestion and correlation using Microsoft Sentinel
 
@@ -233,8 +233,8 @@ Let's build the automation that links the Intelligence (Sentinel) to the Defense
     * **Blocking:** Check the **Logic App Run History** to see "Succeeded". Check the **IP Group** to see if the test IP was added.
   
 
-<p align="left"><img src="images/img_9708.png" width="100%">
-> Take a composite screenshot showing the **Logic App Run History (Succeeded)** AND the **Email Alert** received in your inbox.
+<p align="left"><img src="images/IMG-9708.PNG" width="100%">
+
 
 ---
 
